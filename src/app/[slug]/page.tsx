@@ -5,8 +5,8 @@ import { urlFor } from "@/sanity/lib/image";
 import { PortableText } from "next-sanity";
 import Image from "next/image";
 import React from "react";
-import { components } from "../../../components/CustomComponent";
-import CommentBox from "../../../components/CommentBox";
+import { components } from "../../components/CustomComponent";
+import CommentBox from "../../components/CommentBox";
 
 
 export const revalidate = 10; //seconds
