@@ -76,7 +76,7 @@
 // export default page;
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
-import { PortableText } from "next-sanity";
+import { PortableText, PortableTextBlock } from "next-sanity";
 import Image from "next/image";
 import React from "react";
 import { components } from "../../../components/CustomComponent";
@@ -88,7 +88,7 @@ interface BlogData {
   title: string;
   summary: string;
   image: string;
-  content:any;
+  content:PortableTextBlock[];
   author: {
     name: string;
     bio: string;
