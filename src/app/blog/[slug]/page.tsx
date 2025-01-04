@@ -1,76 +1,64 @@
+
 import { client } from "@/sanity/lib/client";
+
 import { urlFor } from "@/sanity/lib/image";
-import { PortableText, PortableTextBlock } from "next-sanity";
+import { PortableText } from "next-sanity";
 import Image from "next/image";
 import React from "react";
 import { components } from "../../../components/CustomComponent";
 import CommentBox from "../../../components/CommentBox";
 
-export const revalidate = 10; // seconds
 
-interface BlogData {
-  title: string;
-  summary: string;
-  image: string;
-  content:PortableTextBlock[];
-  author: {
-    name: string;
-    bio: string;
-    image: string;
-  };
-}
+export const revalidate = 10; //seconds
 
-const page = async ({ params }: { params: { slug: string } }) => {
-  if (!params || !params.slug) {
-    throw new Error("Slug is missing.");
-  }
-
+const page = async({ params }: { params: { slug: string } }) => {
+ 
+  
   const query = `*[_type == 'blog' && slug.current=='${params.slug}']{
-    title,summary,image,content,
+  title,summary,image,content,
     author->{name,bio,image}
-  }[0]`;
-
-  const data: BlogData | null = await client.fetch(query);
-
-  if (!data) {
-    throw new Error("No data found for the given slug.");
-  }
+}[0]`;
+  const data = await client.fetch(query);
+  console.log(data);
 
   return (
     <article className="mt-12 mb-24 md:px-2 flex flex-col font-serif m-12 gap-y-12">
       {/* Blog Title */}
-      <h1 className="md:text-3xl underline font-bold wrapper text-black dark:text-white">
+      <h1 className="md:text-3xl underline font-bold wrapper  text-black dark:text-white ">
         {data.title}
       </h1>
 
       {/* Feature Image */}
       <Image
-        src={data.image ? urlFor(data.image) : "/placeholder.jpg"}
-        alt="Feature image"
+        src={urlFor(data.image)}
+        alt="author image"
         width={600}
         height={600}
         className="rounded wrapper"
       />
 
       {/* Blog summary section */}
+
       <section>
-        <h2 className="text-xl font-bold uppercase text-fuchsia-700">Summary</h2>
+        <h2 className="text-xl  font-bold uppercase text-fuchsia-700  ">
+          Summary
+        </h2>
         <p className="md:text-lg font-serif leading-relaxed text-justify wrapper text-black/80 dark:text-white/80">
           {data.summary}
         </p>
       </section>
 
-      {/* Author section */}
-      <section className="md:px-2 flex gap-2 items-start">
+      {/* Author section (Image & bio) */}
+      <section className="md:px-2 flex gap-2  items-start">
         <Image
-          src={data.author.image ? urlFor(data.author.image) : "/placeholder.jpg"}
-          alt="Author image"
+          src={urlFor(data.author.image)}
+          alt="author image"
           height={400}
           width={400}
-          className="object-cover rounded-full md:h-16 md:w-16"
+          className="object-cover rounded-full md:h-16 md:w-16 "
         />
         <div className="flex flex-col gap-1">
-          <h3>{data.author.name}</h3>
+          <h3> {data.author.name}</h3>
           <p className="italic font-medium text-md text-black/80 dark:text-white/80">
             {data.author.bio}
           </p>
