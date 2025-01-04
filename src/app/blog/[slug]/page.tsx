@@ -49,7 +49,7 @@ const page = async({ params :{slug} }: { params: { slug: string } }) => {
       </section>
 
       {/* Author section (Image & bio) */}
-      <section className="md:px-2 flex gap-2  items-start">
+      <section className="md:px-2 flex gap-2 items-start">
         <Image
           src={urlFor(post.author.image)}
           alt="author image"
