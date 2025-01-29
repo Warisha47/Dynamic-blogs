@@ -3,7 +3,7 @@ import { client } from "@/sanity/lib/client";
 
 import { urlFor } from "@/sanity/lib/image";
 import { PortableText } from "next-sanity";
-import Image from "next/image";
+import { Image } from "next-sanity/image";
 import React from "react";
 import { components } from "../../components/CustomComponent";
 import CommentBox from "../../components/CommentBox";
